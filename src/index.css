@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@theme {
+  /* Primary (blue) */
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --color-primary-800: #1e40af;
+  --color-primary-900: #1e3a8a;
+
+  /* Success (green) */
+  --color-success-50: #f0fdf4;
+  --color-success-500: #22c55e;
+  --color-success-600: #16a34a;
+  --color-success-700: #15803d;
+
+  /* Error (red) */
+  --color-error-50: #fef2f2;
+  --color-error-500: #ef4444;
+  --color-error-600: #dc2626;
+  --color-error-700: #b91c1c;
+
+  /* Semantic light theme tokens */
+  --color-canvas: #ffffff;
+  --color-surface: #f5f5f5;
+  --color-surface-inset: #f0f0f0;
+  --color-hover: rgba(0, 0, 0, 0.04);
+  --color-active: rgba(0, 0, 0, 0.08);
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #525252;
+  --color-text-muted: #737373;
+  --color-text-placeholder: #a1a1a1;
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-border-focus: rgba(0, 0, 0, 0.15);
+}
+
+/* Typography defaults */
+@layer base {
+  body {
+    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    background-color: var(--color-canvas);
+    color: var(--color-text-primary);
+    line-height: 1.6;
+  }
+
+  h1 { font-size: 1.5rem; font-weight: 600; line-height: 1.4; }
+  h2 { font-size: 1.125rem; font-weight: 600; line-height: 1.5; }
+  h3 { font-size: 1rem; font-weight: 500; line-height: 1.5; }
+  p { line-height: 1.7; }
+  label { font-size: 0.875rem; font-weight: 500; line-height: 1.25; }
+  small { font-size: 0.8125rem; }
+}
+
+/* Html5Qrcode video element styling */
+#qr-reader-region video {
+  border-radius: 0.75rem;
+  object-fit: cover;
+}
+
+#qr-reader-region img {
+  border-radius: 0.75rem;
+}
+
+#qr-reader-region {
+  min-height: 250px;
+}

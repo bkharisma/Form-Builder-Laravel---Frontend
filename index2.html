@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artatix — Temukan Pengalaman Seni & Budaya</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            rausch: '#ff385c',
+            'deep-rausch': '#e00b41',
+            'near-black': '#222222',
+            'focused-gray': '#3f3f3f',
+            'secondary-gray': '#6a6a6a',
+            'border-gray': '#c1c1c1',
+            'light-surface': '#f2f2f2',
+            luxe: '#460479',
+            plus: '#92174d',
+            legal: '#428bff',
+            'nav-dark': '#1a3a5c',
+            'nav-btn': '#2b5a8a',
+            'nav-btn-hover': '#3a7ab5',
+          },
+          fontFamily: {
+            cereal: ['"Plus Jakarta Sans"', 'Circular', '-apple-system', 'system-ui', 'Roboto', '"Helvetica Neue"', 'sans-serif'],
+          },
+          borderRadius: {
+            badge: '14px',
+            card: '20px',
+            large: '32px',
+          },
+          boxShadow: {
+            'airbnb-card': 'rgba(0,0,0,0.02) 0px 0px 0px 1px, rgba(0,0,0,0.04) 0px 2px 6px, rgba(0,0,0,0.1) 0px 4px 8px',
+            'airbnb-hover': 'rgba(0,0,0,0.08) 0px 4px 12px',
+            'airbnb-focus': 'rgb(255,255,255) 0px 0px 0px 4px',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --palette-bg-primary-core: #ff385c;
+      --palette-bg-tertiary-core: #e00b41;
+      --palette-bg-primary-luxe: #460479;
+      --palette-bg-primary-plus: #92174d;
+      --palette-text-primary: #222222;
+      --palette-text-focused: #3f3f3f;
+      --palette-text-secondary: #6a6a6a;
+      --palette-text-material-disabled: rgba(0,0,0,0.24);
+      --palette-text-link-disabled: #929292;
+      --palette-text-legal: #428bff;
+      --palette-text-primary-error: #c13515;
+      --palette-border: #c1c1c1;
+      --palette-grey-100: #f2f2f2;
+      --palette-white: #ffffff;
+      --shadow-card: rgba(0,0,0,0.02) 0px 0px 0px 1px, rgba(0,0,0,0.04) 0px 2px 6px, rgba(0,0,0,0.1) 0px 4px 8px;
+      --shadow-hover: rgba(0,0,0,0.08) 0px 4px 12px;
+      --shadow-focus-ring: 0 0 0 2px #fff, 0 0 0 4px #222;
+      --nav-dark: #1a3a5c;
+      --nav-btn: #2b5a8a;
+      --nav-btn-hover: #3a7ab5;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Plus Jakarta Sans', Circular, -apple-system, system-ui, Roboto, 'Helvetica Neue', sans-serif; color: var(--palette-text-primary); background: var(--palette-white); -webkit-font-smoothing: antialiased; }
+    ::selection { background: var(--palette-bg-primary-core); color: #fff; }
+    ::-webkit-scrollbar { height: 0; width: 0; }
+
+    .heading-section { font-size: 1.75rem; font-weight: 700; line-height: 1.43; letter-spacing: normal; }
+    .heading-card { font-size: 1.38rem; font-weight: 600; line-height: 1.18; letter-spacing: -0.44px; }
+    .heading-feature { font-size: 1.25rem; font-weight: 600; line-height: 1.2; letter-spacing: -0.18px; }
+    .text-ui-medium { font-size: 1rem; font-weight: 500; line-height: 1.25; }
+    .text-ui-semibold { font-size: 1rem; font-weight: 600; line-height: 1.25; }
+    .text-body { font-size: 0.88rem; font-weight: 400; line-height: 1.43; }
+    .text-body-medium { font-size: 0.88rem; font-weight: 500; line-height: 1.29; }
+    .text-small { font-size: 0.81rem; font-weight: 400; line-height: 1.23; }
+    .text-tag { font-size: 0.75rem; font-weight: 500; line-height: 1.33; }
+    .text-micro { font-size: 0.50rem; font-weight: 700; line-height: 1.25; letter-spacing: 0.32px; text-transform: uppercase; }
+
+    .card-shadow { box-shadow: var(--shadow-card); }
+    .card-shadow:hover { box-shadow: var(--shadow-hover); }
+
+    .category-bar { scrollbar-width: none; -ms-overflow-style: none; }
+    .category-bar::-webkit-scrollbar { display: none; }
+
+    .nav-circle {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--palette-white);
+      box-shadow: var(--shadow-card);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.15s ease;
+      border: none; z-index: 10;
+    }
+    .nav-circle:hover { box-shadow: var(--shadow-hover); }
+    .nav-circle:active { transform: scale(0.92); }
+    .nav-circle svg { width: 12px; height: 12px; stroke: var(--palette-text-primary); stroke-width: 2.5; }
+
+    .pill-item {
+      padding: 10px 16px; border-bottom: 2px solid transparent;
+      white-space: nowrap; cursor: pointer; transition: all 0.15s ease;
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      min-width: fit-content; color: var(--palette-text-secondary);
+    }
+    .pill-item.active { border-bottom-color: var(--palette-text-primary); color: var(--palette-text-primary); }
+    .pill-item:hover { color: var(--palette-text-primary); border-bottom-color: var(--palette-border); }
+    .pill-item .pill-icon { width: 24px; height: 24px; }
+    .pill-item .pill-label { font-size: 0.75rem; font-weight: 600; }
+
+    .event-card {
+      background: var(--palette-white);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      cursor: pointer;
+    }
+    .event-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+
+    .card-img-wrap { position: relative; aspect-ratio: 16/10; overflow: hidden; }
+    .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+    .event-card:hover .card-img-wrap img { transform: scale(1.03); }
+
+    .heart-btn {
+      position: absolute; top: 10px; right: 10px;
+      width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      border: none; cursor: pointer; z-index: 5;
+      transition: transform 0.15s ease;
+      background: rgba(0,0,0,0.35);
+    }
+    .heart-btn:hover { transform: scale(1.1); }
+    .heart-btn:active { transform: scale(0.92); }
+    .heart-btn svg { width: 16px; height: 16px; stroke: #fff; stroke-width: 2; fill: transparent; }
+    .heart-btn.liked svg { fill: var(--palette-bg-primary-core); stroke: var(--palette-bg-primary-core); }
+
+    .card-dots { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); display: flex; gap: 3px; }
+    .card-dots span { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.5); cursor: pointer; transition: background 0.15s; }
+    .card-dots span.active { background: #fff; }
+
+    .badge-guest { position: absolute; top: 10px; left: 10px; background: #fff; padding: 3px 8px; border-radius: 14px; font-size: 0.69rem; font-weight: 600; line-height: 1.18; box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
+
+    /* === NAV BUTTONS (from image reference) === */
+    .nav-tab-btn {
+      padding: 8px 20px;
+      border-radius: 8px;
+      border: none;
+      background: var(--nav-btn);
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 500;
+      line-height: 1.25;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      letter-spacing: 0.01em;
+    }
+    .nav-tab-btn:hover {
+      background: var(--nav-btn-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(43, 90, 138, 0.35);
+    }
+    .nav-tab-btn:active {
+      transform: scale(0.97) translateY(0);
+      box-shadow: none;
+    }
+    .nav-tab-btn.active {
+      background: #ffffff;
+      color: var(--nav-dark);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .nav-tab-btn.active:hover {
+      background: #f0f4f8;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .cta-primary {
+      background: var(--palette-text-primary); color: #fff;
+      padding: 0 24px; border-radius: 8px; border: none;
+      font-family: inherit; font-size: 1rem; font-weight: 500; line-height: 1.25;
+      cursor: pointer; transition: all 0.15s ease; height: 44px;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .cta-primary:hover { background: var(--palette-bg-primary-core); }
+    .cta-primary:active { transform: scale(0.96); }
+
+    .cta-rausch {
+      background: var(--palette-bg-primary-core); color: #fff;
+      padding: 0 24px; border-radius: 8px; border: none;
+      font-family: inherit; font-size: 1rem; font-weight: 500; line-height: 1.25;
+      cursor: pointer; transition: all 0.15s ease; height: 44px;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .cta-rausch:hover { background: var(--palette-bg-tertiary-core); }
+    .cta-rausch:active { transform: scale(0.96); }
+
+    .feature-card {
+      background: var(--palette-white);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: var(--shadow-card);
+      transition: box-shadow 0.2s ease;
+    }
+    .feature-card:hover { box-shadow: var(--shadow-hover); }
+
+    .cat-feature-card {
+      position: relative; border-radius: 20px; overflow: hidden;
+      aspect-ratio: 4/5; cursor: pointer;
+    }
+    .cat-feature-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+    .cat-feature-card:hover img { transform: scale(1.05); }
+    .cat-feature-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 24px;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-in { animation: fadeInUp 0.6s ease forwards; opacity: 0; }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+
+    .footer-link { font-size: 0.88rem; color: var(--palette-text-secondary); text-decoration: none; transition: color 0.15s; }
+    .footer-link:hover { color: var(--palette-text-primary); text-decoration: underline; }
+
+    .toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
+      background: var(--palette-text-primary); color: #fff; padding: 12px 24px;
+      border-radius: 8px; font-size: 0.88rem; font-weight: 500;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 9999;
+      transition: transform 0.3s ease, opacity 0.3s ease; opacity: 0; pointer-events: none;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+    @media (max-width: 744px) {
+      .heading-section { font-size: 1.38rem; }
+      .pill-item { padding: 8px 12px; }
+      .pill-item .pill-icon { width: 20px; height: 20px; }
+      .pill-item .pill-label { font-size: 0.69rem; }
+      .nav-tab-btn { padding: 6px 14px; font-size: 0.81rem; }
+    }
+
+    /* Mobile nav drawer */
+    .mobile-nav-drawer {
+      position: fixed; inset: 0; z-index: 100;
+      pointer-events: none; opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .mobile-nav-drawer.open { pointer-events: auto; opacity: 1; }
+    .mobile-nav-drawer .drawer-backdrop {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.4);
+    }
+    .mobile-nav-drawer .drawer-panel {
+      position: absolute; top: 0; left: 0; right: 0;
+      background: var(--nav-dark);
+      padding: 20px 24px 24px;
+      transform: translateY(-100%);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      border-radius: 0 0 20px 20px;
+    }
+    .mobile-nav-drawer.open .drawer-panel { transform: translateY(0); }
+    .mobile-nav-drawer .mobile-nav-btn {
+      display: block; width: 100%; text-align: left;
+      padding: 14px 20px; border-radius: 10px;
+      background: var(--nav-btn); color: #fff;
+      font-family: inherit; font-size: 1rem; font-weight: 500;
+      border: none; cursor: pointer;
+      transition: all 0.15s ease; margin-bottom: 8px;
+    }
+    .mobile-nav-drawer .mobile-nav-btn:hover { background: var(--nav-btn-hover); }
+    .mobile-nav-drawer .mobile-nav-btn.active { background: #ffffff; color: var(--nav-dark); }
+  </style>
+</head>
+<body class="font-cereal">
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Mobile Nav Drawer -->
+  <div class="mobile-nav-drawer md:hidden" id="mobileNavDrawer">
+    <div class="drawer-backdrop" onclick="closeMobileNav()"></div>
+    <div class="drawer-panel">
+      <div class="flex items-center justify-between mb-5">
+        <span class="text-white text-lg font-semibold">Menu</span>
+        <button class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center" onclick="closeMobileNav()">
+          <i data-lucide="x" class="w-4 h-4 text-white"></i>
+        </button>
+      </div>
+      <button class="mobile-nav-btn active" onclick="setActiveNav(this, 'Beranda'); closeMobileNav()">Beranda</button>
+      <button class="mobile-nav-btn" onclick="setActiveNav(this, 'Jelajah'); closeMobileNav()">Jelajah</button>
+      <button class="mobile-nav-btn" onclick="setActiveNav(this, 'Tentang'); closeMobileNav()">Tentang</button>
+      <button class="mobile-nav-btn" onclick="setActiveNav(this, 'Hubungi Kami'); closeMobileNav()">Hubungi Kami</button>
+    </div>
+  </div>
+
+  <!-- ========== HEADER ========== -->
+  <header class="sticky top-0 z-50 bg-white transition-shadow duration-200" id="header" style="border-bottom: 1px solid transparent;">
+    <div class="max-w-[1920px] mx-auto px-6 md:px-10 lg:px-20">
+      <!-- Top Nav -->
+      <div class="flex items-center justify-between h-16 md:h-20">
+
+        <!-- Left: Logo -->
+        <a href="#" class="flex items-center gap-1.5 shrink-0">
+          <svg width="30" height="32" viewBox="0 0 30 32" fill="none">
+            <path d="M15 2L2 28h6l7-14 7 14h6L15 2z" fill="#ff385c"/>
+            <circle cx="15" cy="12" r="3" fill="#fff"/>
+          </svg>
+          <span class="text-rausch text-xl font-bold tracking-tight hidden sm:inline">artatix</span>
+        </a>
+
+        <!-- Center: Navigation Buttons (replacing search bar) -->
+        <nav class="hidden md:flex items-center gap-2 mx-8" id="desktopNav">
+          <button class="nav-tab-btn active" onclick="setActiveNav(this, 'Beranda')">Beranda</button>
+          <button class="nav-tab-btn" onclick="setActiveNav(this, 'Jelajah')">Jelajah</button>
+          <button class="nav-tab-btn" onclick="setActiveNav(this, 'Tentang')">Tentang</button>
+          <button class="nav-tab-btn" onclick="setActiveNav(this, 'Hubungi Kami')">Hubungi Kami</button>
+        </nav>
+
+        <!-- Right: Actions -->
+        <nav class="flex items-center gap-2 shrink-0">
+          <!-- Mobile hamburger (shows nav drawer) -->
+          <button class="w-10 h-10 rounded-full hover:bg-gray-100 transition flex items-center justify-center md:hidden" onclick="openMobileNav()">
+            <i data-lucide="menu" class="w-5 h-5 text-near-black"></i>
+          </button>
+
+          <button class="text-ui-medium text-near-black px-3 py-2 rounded-full hover:bg-gray-100 transition hidden lg:block" onclick="showToast('Fitur coming soon!')">Jadi Penyelenggara</button>
+          <button class="w-10 h-10 rounded-full hover:bg-gray-100 transition flex items-center justify-center" onclick="showToast('Bahasa: Indonesia')">
+            <i data-lucide="globe" class="w-4 h-4 text-near-black"></i>
+          </button>
+          <button class="flex items-center gap-2 pl-3 pr-1.5 py-1.5 rounded-full border border-border-gray hover:shadow-airbnb-hover transition" onclick="toggleUserMenu()">
+            <i data-lucide="user" class="w-4 h-4 text-near-black"></i>
+            <div class="w-7 h-7 rounded-full bg-gray-500 flex items-center justify-center">
+              <i data-lucide="user" class="w-3.5 h-3.5 text-white"></i>
+            </div>
+          </button>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Category Bar -->
+    <div class="border-t border-gray-100 relative">
+      <div class="max-w-[1920px] mx-auto px-6 md:px-10 lg:px-20 relative">
+        <div class="flex items-center gap-0 relative">
+          <button class="nav-circle absolute left-0 hidden md:flex" id="catLeft" onclick="scrollCat(-300)" style="display:none;">
+            <i data-lucide="chevron-left"></i>
+          </button>
+          <div class="category-bar flex items-center overflow-x-auto py-3 gap-2" id="categoryBar"></div>
+          <button class="nav-circle absolute right-0 hidden md:flex" id="catRight" onclick="scrollCat(300)">
+            <i data-lucide="chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- User Menu Dropdown -->
+    <div id="userMenu" class="absolute right-6 md:right-10 lg:right-20 top-16 md:top-20 w-56 bg-white rounded-2xl card-shadow py-2 z-50 hidden">
+      <button class="w-full text-left px-4 py-2.5 text-sm font-medium text-near-black hover:bg-gray-50 transition" onclick="showToast('Halaman sign up'); toggleUserMenu()">Sign up</button>
+      <button class="w-full text-left px-4 py-2.5 text-sm text-near-black hover:bg-gray-50 transition" onclick="showToast('Halaman log in'); toggleUserMenu()">Log in</button>
+      <div class="border-t border-gray-100 my-1"></div>
+      <button class="w-full text-left px-4 py-2.5 text-sm text-near-black hover:bg-gray-50 transition" onclick="showToast('Fitur coming soon!'); toggleUserMenu()">Jadi Penyelenggara</button>
+      <button class="w-full text-left px-4 py-2.5 text-sm text-near-black hover:bg-gray-50 transition" onclick="showToast('Pusat bantuan'); toggleUserMenu()">Pusat Bantuan</button>
+    </div>
+  </header>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main>
+
+    <!-- Banner Slider -->
+    <section class="max-w-[1920px] mx-auto px-6 md:px-10 lg:px-20 pt-6 animate-in">
+      <div class="relative rounded-card overflow-hidden cursor-pointer group" style="aspect-ratio: 21/8;" onclick="showToast('Membuka detail pameran...')">
+        <img src="https://picsum.photos/seed/artatix-hero-main/1600/610.jpg" alt="Featured Exhibition" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]">
+        <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent"></div>
+        <div class="absolute inset-0 flex flex-col justify-center px-8 md:px-14 lg:px-20">
+          <span class="text-micro text-white/70 mb-3 tracking-widest">PAMERAN UNGGULAN</span>
+          <h1 class="text-white text-2xl md:text-4xl lg:text-5xl font-bold leading-tight mb-3" style="letter-spacing: -0.44px;">Nusantara Visual<br>Dialogue 2025</h1>
+          <p class="text-white/80 text-sm md:text-base mb-5 max-w-md">Eksplorasi 200+ karya dari 50 seniman kontemporer Indonesia. Sebuah perjalanan visual melintasi budaya nusantara.</p>
+          <div class="flex items-center gap-3">
+            <button class="cta-rausch">Jelajahi Pameran</button>
+            <button class="px-5 py-2 rounded-lg bg-white/15 backdrop-blur-sm text-white text-sm font-medium hover:bg-white/25 transition border border-white/20">15 Jun – 28 Agu</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Kegiatan Kopega-->
+    <section class="max-w-[1920px] mx-auto px-6 md:px-10 lg:px-20 pt-10 pb-6">
+      <div class="flex items-center justify-between mb-6 animate-in delay-1">
+        <h2 class="heading-section">Kegiatan Kopega</h2>
+        <button class="text-ui-medium text-near-black hover:underline hidden sm:flex items-center gap-1" onclick="showToast('Menampilkan semua acara')">
+          Lihat semua <i data-lucide="chevron-right" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="eventGrid"></div>
+      <div class="flex justify-center mt-8 sm:hidden animate-in delay-3">
+        <button class="text-ui-medium text-near-black hover:underline flex items-center gap-1" onclick="showToast('Menampilkan semua acara')">
+          Lihat semua <i data-lucide="chevron-right" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- Pencarian Berdasarkan Kategori -->
+    <section class="max-w-[1920px] mx-auto px-6 md:px-10 lg:px-20 py-10">
+      <h2 class="heading-section mb-6 animate-in">Jelajahi Berdasarkan Kategori</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6" id="catFeatureGrid"></div>
+    </section>
+
+    <!-- Apa itu Kopega -->
+    <section class="max-w-[1920px] mx-auto px-6 md:px-10 lg:px-20 py-10">
+      <h2 class="heading-section mb-8 text-center">Mengapa Artatix?</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="feature-card animate-in delay-1">
+          <div class="w-12 h-12 rounded-full bg-rausch/10 flex items-center justify-center mb-4">
+            <i data-lucide="shield-check" class="w-6 h-6 text-rausch"></i>
+          </div>
+          <h3 class="heading-feature mb-2">Transaksi Aman</h3>
+          <p class="text-body text-secondary-gray">Pembayaran terproteksi dengan enkripsi end-to-end. Dana ditahan hingga acara selesai.</p>
+        </div>
+        <div class="feature-card animate-in delay-2">
+          <div class="w-12 h-12 rounded-full bg-rausch/10 flex items-center justify-center mb-4">
+            <i data-lucide="sparkles" class="w-6 h-6 text-rausch"></i>
+          </div>
+          <h3 class="heading-feature mb-2">Kurasi Berkualitas</h3>
+          <p class="text-body text-secondary-gray">Setiap acara melewati proses kurasi ketat untuk memastikan pengalaman seni terbaik.</p>
+        </div>
+        <div class="feature-card animate-in delay-3">
+          <div class="w-12 h-12 rounded-full bg-rausch/10 flex items-center justify-center mb-4">
+            <i data-lucide="map-pin" class="w-6 h-6 text-rausch"></i>
+          </div>
+          <h3 class="heading-feature mb-2">Seluruh Indonesia</h3>
+          <p class="text-body text-secondary-gray">Temukan acara seni dan budaya dari Sabang sampai Merauke, di kota maupun destinasi tersembunyi.</p>
+        </div>
+        <div class="feature-card animate-in delay-4">
+          <div class="w-12 h-12 rounded-full bg-rausch/10 flex items-center justify-center mb-4">
+            <i data-lucide="users" class="w-6 h-6 text-rausch"></i>
+          </div>
+          <h3 class="heading-feature mb-2">Komunitas Aktif</h3>
+          <p class="text-body text-secondary-gray">Bergabung dengan 50.000+ pecinta seni. Dapatkan rekomendasi personalized dan koneksi bermakna.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Carousel -->
+    <section class="max-w-[1920px] mx-auto px-6 md:px-10 lg:px-20 py-10">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="heading-section">Sedang Trending</h2>
+        <div class="flex items-center gap-2">
+          <button class="nav-circle" onclick="scrollTrending(-400)"><i data-lucide="chevron-left"></i></button>
+          <button class="nav-circle" onclick="scrollTrending(400)"><i data-lucide="chevron-right"></i></button>
+        </div>
+      </div>
+      <div class="flex gap-6 overflow-x-auto category-bar pb-2" id="trendingScroll"></div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="max-w-[1920px] mx-auto px-6 md:px-10 lg:px-20 py-10">
+      <div class="relative rounded-large overflow-hidden" style="min-height: 320px;">
+        <img src="https://picsum.photos/seed/artatix-cta-host/1600/400.jpg" alt="Become Host" class="absolute inset-0 w-full h-full object-cover">
+        <div class="absolute inset-0 bg-black/50"></div>
+        <div class="relative z-10 flex flex-col items-center justify-center text-center px-6 py-16 md:py-20">
+          <h2 class="text-white text-2xl md:text-4xl font-bold mb-3" style="letter-spacing: -0.44px;">Punya Acara Seni?</h2>
+          <p class="text-white/80 text-sm md:text-base mb-6 max-w-lg">Jangkau ribuan pecinta seni di seluruh Indonesia. Mulai dari pameran, workshop, hingga festival — semua bisa di Artatix.</p>
+          <button class="cta-rausch text-base px-8 h-12" onclick="showToast('Membuka halaman penyelenggara...')">Mulai Jadi Penyelenggara</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="max-w-[1920px] mx-auto px-6 md:px-10 lg:px-20 py-10">
+      <h2 class="heading-section mb-8 text-center">Apa Kata Mereka</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="testimonialGrid"></div>
+    </section>
+
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="border-t border-gray-100 bg-gray-50">
+    <div class="max-w-[1920px] mx-auto px-6 md:px-10 lg:px-20 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
+        <div>
+          <div class="flex items-center gap-1 mb-4">
+            <svg width="26" height="28" viewBox="0 0 30 32" fill="none">
+              <path d="M15 2L2 28h6l7-14 7 14h6L15 2z" fill="#ff385c"/>
+              <circle cx="15" cy="12" r="3" fill="#fff"/>
+            </svg>
+            <span class="text-rausch text-lg font-bold">artatix</span>
+          </div>
+          <p class="text-sm text-secondary-gray leading-relaxed mb-4">Platform terdepan untuk menemukan dan menikmati pengalaman seni & budaya di seluruh Indonesia.</p>
+          <div class="flex items-center gap-3">
+            <a href="#" class="w-8 h-8 rounded-full bg-light-surface flex items-center justify-center hover:bg-gray-200 transition" onclick="event.preventDefault(); showToast('Instagram @artatix')">
+              <i data-lucide="instagram" class="w-4 h-4 text-near-black"></i>
+            </a>
+            <a href="#" class="w-8 h-8 rounded-full bg-light-surface flex items-center justify-center hover:bg-gray-200 transition" onclick="event.preventDefault(); showToast('Twitter @artatix')">
+              <i data-lucide="twitter" class="w-4 h-4 text-near-black"></i>
+            </a>
+            <a href="#" class="w-8 h-8 rounded-full bg-light-surface flex items-center justify-center hover:bg-gray-200 transition" onclick="event.preventDefault(); showToast('YouTube Artatix')">
+              <i data-lucide="youtube" class="w-4 h-4 text-near-black"></i>
+            </a>
+          </div>
+        </div>
+        <div>
+          <h4 class="text-sm font-semibold text-near-black mb-4">Dukungan</h4>
+          <ul class="space-y-3">
+            <li><a href="#" class="footer-link" onclick="event.preventDefault()">Pusat Bantuan</a></li>
+            <li><a href="#" class="footer-link" onclick="event.preventDefault()">Panduan Booking</a></li>
+            <li><a href="#" class="footer-link" onclick="event.preventDefault()">Kebijakan Pembatalan</a></li>
+            <li><a href="#" class="footer-link" onclick="event.preventDefault()">Laporkan Masalah</a></li>
+            <li><a href="#" class="footer-link" onclick="event.preventDefault()">Aksesibilitas</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-sm font-semibold text-near-black mb-4">Penyelenggara</h4>
+          <ul class="space-y-3">
+            <li><a href="#" class="footer-link" onclick="event.preventDefault()">Mulai Jadi Penyelenggara</a></li>
+            <li><a href="#" class="footer-link" onclick="event.preventDefault()">Panduan Penyelenggara</a></li>
+            <li><a href="#" class="footer-link" onclick="event.preventDefault()">Komunitas Penyelenggara</a></li>
+            <li><a href="#" class="footer-link" onclick="event.preventDefault()">Sumber Daya</a></li>
+            <li><a href="#" class="footer-link" onclick="event.preventDefault()">Forum Diskusi</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-sm font-semibold text-near-black mb-4">Legal</h4>
+          <ul class="space-y-3">
+            <li><a href="#" class="footer-link" onclick="event.preventDefault()">Syarat & Ketentuan</a></li>
+            <li><a href="#" class="footer-link" onclick="event.preventDefault()">Kebijakan Privasi</a></li>
+            <li><a href="#" class="footer-link" onclick="event.preventDefault()">Cookie Policy</a></li>
+            <li><a href="#" class="footer-link" onclick="event.preventDefault()">Sitemap</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-gray-200 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-sm text-secondary-gray">© 2025 Artatix, Inc. Hak cipta dilindungi.</p>
+        <div class="flex items-center gap-2 text-sm text-secondary-gray">
+          <i data-lucide="globe" class="w-3.5 h-3.5"></i>
+          <span>Indonesia (ID)</span>
+          <span>·</span>
+          <span>Rp (IDR)</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== MOBILE BOTTOM NAV ========== -->
+  <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 flex items-center justify-around py-2 px-4 md:hidden z-50">
+    <button class="flex flex-col items-center gap-0.5 py-1 px-3" onclick="showToast('Beranda')">
+      <i data-lucide="search" class="w-5 h-5 text-near-black"></i>
+      <span class="text-[10px] font-semibold text-near-black">Jelajahi</span>
+    </button>
+    <button class="flex flex-col items-center gap-0.5 py-1 px-3" onclick="showToast('Wishlist')">
+      <i data-lucide="heart" class="w-5 h-5 text-secondary-gray"></i>
+      <span class="text-[10px] font-medium text-secondary-gray">Wishlist</span>
+    </button>
+    <button class="flex flex-col items-center gap-0.5 py-1 px-3" onclick="showToast('Tiket Saya')">
+      <i data-lucide="ticket" class="w-5 h-5 text-secondary-gray"></i>
+      <span class="text-[10px] font-medium text-secondary-gray">Tiket</span>
+    </button>
+    <button class="flex flex-col items-center gap-0.5 py-1 px-3" onclick="showToast('Profil')">
+      <i data-lucide="user" class="w-5 h-5 text-secondary-gray"></i>
+      <span class="text-[10px] font-medium text-secondary-gray">Profil</span>
+    </button>
+  </nav>
+  <div class="h-16 md:hidden"></div>
+
+  <script>
+    // ========== DATA ==========
+    const categories = [
+      { id: 'all', label: 'Semua', icon: 'layout-grid' },
+      { id: 'pameran', label: 'Pameran', icon: 'frame' },
+      { id: 'workshop', label: 'Workshop', icon: 'palette' },
+      { id: 'musik', label: 'Musik', icon: 'music' },
+      { id: 'teater', label: 'Teater', icon: 'drama' },
+      { id: 'tari', label: 'Tari', icon: 'waves' },
+      { id: 'film', label: 'Film', icon: 'film' },
+      { id: 'diskusi', label: 'Diskusi', icon: 'message-circle' },
+      { id: 'festival', label: 'Festival', icon: 'sparkles' },
+      { id: 'kuliner', label: 'Kuliner', icon: 'utensils' },
+      { id: 'literasi', label: 'Literasi', icon: 'book-open' },
+      { id: 'fotografi', label: 'Fotografi', icon: 'camera' },
+      { id: 'kerajinan', label: 'Kerajinan', icon: 'scissors' },
+      { id: 'digital', label: 'Digital Art', icon: 'monitor' },
+    ];
+
+    const catFeatures = [
+      { label: 'Pameran', desc: '120+ pameran aktif', img: 'artatix-cat-pameran' },
+      { label: 'Workshop', desc: '85+ workshop tersedia', img: 'artatix-cat-workshop' },
+      { label: 'Musik', desc: '60+ pertunjukan', img: 'artatix-cat-musik' },
+      { label: 'Festival', desc: '25+ festival tahun ini', img: 'artatix-cat-festival' },
+      { label: 'Teater', desc: '40+ pertunjukan', img: 'artatix-cat-teater' },
+      { label: 'Film', desc: '30+ screening', img: 'artatix-cat-film' },
+      { label: 'Diskusi', desc: '50+ forum terbuka', img: 'artatix-cat-diskusi' },
+      { label: 'Digital Art', desc: '35+ pameran virtual', img: 'artatix-cat-digital' },
+    ];
+
+    const events = [
+      { title: 'Pameran Seni Rupa Nusantara', location: 'Jakarta Selatan', category: 'Pameran', date: '15 Jun – 28 Agu 2025', price: 'Rp 75.000', rating: 4.9, reviews: 234, images: ['artatix-ev1a', 'artatix-ev1b', 'artatix-ev1c'], badge: null, isLuxe: false },
+      { title: 'Workshop Batik Tulis Jogja', location: 'Yogyakarta', category: 'Workshop', date: '22 Jun 2025', price: 'Rp 250.000', rating: 4.8, reviews: 128, images: ['artatix-ev2a', 'artatix-ev2b'], badge: 'Favorit', isLuxe: false },
+      { title: 'Gamelan Night Under The Stars', location: 'Ubud, Bali', category: 'Musik', date: '5 Jul 2025', price: 'Rp 150.000', rating: 4.9, reviews: 312, images: ['artatix-ev3a', 'artatix-ev3b', 'artatix-ev3c'], badge: 'Luxe', isLuxe: true },
+      { title: 'Teater Rakyat Betawi "Si Pitung"', location: 'Jakarta Timur', category: 'Teater', date: '10 Jul 2025', price: 'Rp 100.000', rating: 4.7, reviews: 89, images: ['artatix-ev4a', 'artatix-ev4b'], badge: null, isLuxe: false },
+      { title: 'Urban Photography Exhibition', location: 'Bandung', category: 'Pameran', date: '1 – 20 Jul 2025', price: 'Rp 50.000', rating: 4.6, reviews: 67, images: ['artatix-ev5a', 'artatix-ev5b', 'artatix-ev5c'], badge: 'Baru', isLuxe: false },
+      { title: 'Festival Seni Pesisir Selatan', location: 'Labuan Bajo, NTT', category: 'Festival', date: '18 – 21 Jul 2025', price: 'Gratis', rating: 4.8, reviews: 156, images: ['artatix-ev6a', 'artatix-ev6b'], badge: 'Gratis', isLuxe: false },
+      { title: 'Diskusi: Seni Kontemporer & Identitas', location: 'Surabaya', category: 'Diskusi', date: '8 Jul 2025', price: 'Rp 25.000', rating: 4.5, reviews: 42, images: ['artatix-ev7a', 'artatix-ev7b'], badge: null, isLuxe: false },
+      { title: 'Workshop Keramik Tangan Kosong', location: 'Kasongan, Yogyakarta', category: 'Workshop', date: '12 Jul 2025', price: 'Rp 350.000', rating: 4.9, reviews: 201, images: ['artatix-ev8a', 'artatix-ev8b', 'artatix-ev8c'], badge: 'Favorit', isLuxe: false },
+    ];
+
+    const trendingEvents = [
+      { title: 'Art Jakarta 2025', location: 'JCC Senayan', date: '25–27 Jul', price: 'Rp 120.000', img: 'artatix-trend1', rating: 4.9, reviews: 500 },
+      { title: 'Wayang Festival Borobudur', location: 'Magelang', date: '2–4 Aug', price: 'Rp 85.000', img: 'artatix-trend2', rating: 4.8, reviews: 340 },
+      { title: 'SoundScape: Digital Music Fest', location: 'Bali', date: '9–10 Aug', price: 'Rp 450.000', img: 'artatix-trend3', rating: 4.7, reviews: 278 },
+      { title: 'Pameran Installasi "Ruang"', location: 'Bandung', date: '15 Jul – 15 Aug', price: 'Rp 60.000', img: 'artatix-trend4', rating: 4.6, reviews: 190 },
+      { title: 'Tari Tradisional Nusantara', location: 'TMII Jakarta', date: '20 Aug', price: 'Rp 75.000', img: 'artatix-trend5', rating: 4.8, reviews: 156 },
+      { title: 'Film Pendek Festival', location: 'Yogyakarta', date: '28–30 Aug', price: 'Rp 40.000', img: 'artatix-trend6', rating: 4.5, reviews: 98 },
+    ];
+
+    const testimonials = [
+      { name: 'Rina Kartika', role: 'Pecinta Seni, Jakarta', text: '"Artatix mengubah cara saya menikmati seni. Dari pameran tersembunyi hingga workshop eksklusif — semua ada di satu tempat."', avatar: 'artatix-avatar1' },
+      { name: 'Budi Santoso', role: 'Penyelenggara, Yogyakarta', text: '"Sebagai penyelenggara, Artatix membantu saya menjangkau audiens yang tepat. Tiket terjual 3x lebih banyak dibanding platform lain."', avatar: 'artatix-avatar2' },
+      { name: 'Maya Putri', role: 'Fotografer, Bandung', text: '"Saya menemukan banyak pameran inspiratif lewat Artatix. Fitur rekomendasinya sangat akurat dengan selera saya."', avatar: 'artatix-avatar3' },
+    ];
+
+    // ========== NAV BUTTON ACTIVE STATE ==========
+    function setActiveNav(btn, label) {
+      // Desktop buttons
+      document.querySelectorAll('#desktopNav .nav-tab-btn').forEach(b => b.classList.remove('active'));
+      // Mobile buttons
+      document.querySelectorAll('#mobileNavDrawer .mobile-nav-btn').forEach(b => b.classList.remove('active'));
+
+      if (btn) btn.classList.add('active');
+
+      // Sync both desktop and mobile
+      const allBtns = document.querySelectorAll('.nav-tab-btn, .mobile-nav-btn');
+      allBtns.forEach(b => {
+        if (b.textContent.trim() === label) b.classList.add('active');
+        else b.classList.remove('active');
+      });
+
+      showToast(`Navigasi ke: ${label}`);
+    }
+
+    // ========== MOBILE NAV DRAWER ==========
+    function openMobileNav() {
+      document.getElementById('mobileNavDrawer').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMobileNav() {
+      document.getElementById('mobileNavDrawer').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // ========== RENDER CATEGORIES ==========
+    function renderCategories() {
+      const bar = document.getElementById('categoryBar');
+      bar.innerHTML = categories.map((cat, i) => `
+        <div class="pill-item ${i === 0 ? 'active' : ''}" data-cat="${cat.id}" onclick="selectCategory(this)">
+          <i data-lucide="${cat.icon}" class="pill-icon"></i>
+          <span class="pill-label">${cat.label}</span>
+        </div>
+      `).join('');
+    }
+
+    let activeCat = 'all';
+    function selectCategory(el) {
+      document.querySelectorAll('.pill-item').forEach(p => p.classList.remove('active'));
+      el.classList.add('active');
+      activeCat = el.dataset.cat;
+      filterEvents();
+    }
+
+    function filterEvents() {
+      const filtered = activeCat === 'all' ? events : events.filter(e => e.category.toLowerCase() === activeCat);
+      renderEvents(filtered);
+    }
+
+    // ========== RENDER EVENT CARDS ==========
+    function renderEvents(data = events) {
+      const grid = document.getElementById('eventGrid');
+      if (data.length === 0) {
+        grid.innerHTML = `<div class="col-span-full text-center py-16"><p class="text-secondary-gray text-body">Belum ada acara untuk kategori ini.</p></div>`;
+        return;
+      }
+      grid.innerHTML = data.map((ev, idx) => `
+        <div class="event-card animate-in delay-${Math.min(idx % 4 + 1, 4)}" onclick="showToast('Membuka: ${ev.title}')">
+          <div class="card-img-wrap">
+            ${ev.images.map((img, i) => `<img src="https://picsum.photos/seed/${img}/600/375.jpg" alt="${ev.title}" class="${i > 0 ? 'hidden' : ''}" data-slide="${idx}-${i}">`).join('')}
+            ${ev.images.length > 1 ? `
+              <div class="card-dots">
+                ${ev.images.map((_, i) => `<span class="${i === 0 ? 'active' : ''}" data-dot="${idx}-${i}" onclick="event.stopPropagation(); slideCard(${idx}, ${i})"></span>`).join('')}
+              </div>
+            ` : ''}
+            <button class="heart-btn" onclick="event.stopPropagation(); toggleHeart(this)">
+              <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </button>
+            ${ev.badge ? `<span class="badge-guest">${ev.isLuxe ? '<span style="color:#460479">★</span> ' : ''}${ev.badge}</span>` : ''}
+          </div>
+          <div class="p-4">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-tag text-secondary-gray font-medium">${ev.location} · ${ev.category}</span>
+              <span class="text-tag text-near-black font-semibold flex items-center gap-0.5">★ ${ev.rating}</span>
+            </div>
+            <h3 class="heading-card mb-1 line-clamp-1">${ev.title}</h3>
+            <p class="text-small text-secondary-gray mb-2">${ev.date}</p>
+            <p class="text-body-medium text-near-black"><span class="font-semibold">${ev.price}</span> / orang</p>
+          </div>
+        </div>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    function slideCard(cardIdx, slideIdx) {
+      const imgs = document.querySelectorAll(`[data-slide^="${cardIdx}-"]`);
+      const dots = document.querySelectorAll(`[data-dot^="${cardIdx}-"]`);
+      imgs.forEach(img => img.classList.add('hidden'));
+      dots.forEach(dot => dot.classList.remove('active'));
+      const target = document.querySelector(`[data-slide="${cardIdx}-${slideIdx}"]`);
+      const targetDot = document.querySelector(`[data-dot="${cardIdx}-${slideIdx}"]`);
+      if (target) target.classList.remove('hidden');
+      if (targetDot) targetDot.classList.add('active');
+    }
+
+    function toggleHeart(btn) {
+      btn.classList.toggle('liked');
+      showToast(btn.classList.contains('liked') ? 'Ditambahkan ke Wishlist ♥' : 'Dihapus dari Wishlist');
+    }
+
+    // ========== CATEGORY FEATURES ==========
+    function renderCatFeatures() {
+      const grid = document.getElementById('catFeatureGrid');
+      grid.innerHTML = catFeatures.map((cat, i) => `
+        <div class="cat-feature-card animate-in delay-${Math.min(i % 4 + 1, 4)}" onclick="showToast('Kategori: ${cat.label}')">
+          <img src="https://picsum.photos/seed/${cat.img}/400/500.jpg" alt="${cat.label}">
+          <div class="cat-feature-overlay">
+            <h3 class="text-white text-lg font-bold mb-0.5">${cat.label}</h3>
+            <p class="text-white/75 text-sm">${cat.desc}</p>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ========== TRENDING ==========
+    function renderTrending() {
+      const scroll = document.getElementById('trendingScroll');
+      scroll.innerHTML = trendingEvents.map((ev, i) => `
+        <div class="shrink-0 w-64 md:w-72 animate-in delay-${Math.min(i % 4 + 1, 4)}">
+          <div class="event-card" onclick="showToast('Membuka: ${ev.title}')">
+            <div class="card-img-wrap" style="aspect-ratio:4/3;">
+              <img src="https://picsum.photos/seed/${ev.img}/500/375.jpg" alt="${ev.title}">
+              <button class="heart-btn" onclick="event.stopPropagation(); toggleHeart(this)">
+                <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              </button>
+            </div>
+            <div class="p-4">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-tag text-secondary-gray font-medium">${ev.location}</span>
+                <span class="text-tag text-near-black font-semibold flex items-center gap-0.5">★ ${ev.rating}</span>
+              </div>
+              <h3 class="heading-card mb-1 line-clamp-1">${ev.title}</h3>
+              <p class="text-small text-secondary-gray mb-2">${ev.date}</p>
+              <p class="text-body-medium text-near-black"><span class="font-semibold">${ev.price}</span> / orang</p>
+            </div>
+          </div>
+        </div>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    function scrollTrending(amount) {
+      document.getElementById('trendingScroll').scrollBy({ left: amount, behavior: 'smooth' });
+    }
+
+    // ========== TESTIMONIALS ==========
+    function renderTestimonials() {
+      const grid = document.getElementById('testimonialGrid');
+      grid.innerHTML = testimonials.map((t, i) => `
+        <div class="feature-card animate-in delay-${i + 1}">
+          <div class="flex items-center gap-3 mb-4">
+            <img src="https://picsum.photos/seed/${t.avatar}/80/80.jpg" alt="${t.name}" class="w-10 h-10 rounded-full object-cover">
+            <div>
+              <p class="text-sm font-semibold text-near-black">${t.name}</p>
+              <p class="text-xs text-secondary-gray">${t.role}</p>
+            </div>
+          </div>
+          <p class="text-body text-secondary-gray leading-relaxed">${t.text}</p>
+        </div>
+      `).join('');
+    }
+
+    // ========== CATEGORY BAR SCROLL ==========
+    function scrollCat(amount) {
+      document.getElementById('categoryBar').scrollBy({ left: amount, behavior: 'smooth' });
+    }
+
+    function updateCatArrows() {
+      const bar = document.getElementById('categoryBar');
+      const left = document.getElementById('catLeft');
+      const right = document.getElementById('catRight');
+      if (!bar || !left || !right) return;
+      left.style.display = bar.scrollLeft > 10 ? 'flex' : 'none';
+      right.style.display = bar.scrollLeft < bar.scrollWidth - bar.clientWidth - 10 ? 'flex' : 'none';
+    }
+
+    // ========== USER MENU ==========
+    function toggleUserMenu() {
+      document.getElementById('userMenu').classList.toggle('hidden');
+    }
+
+    // ========== TOAST ==========
+    let toastTimer;
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    // ========== HEADER SHADOW ON SCROLL ==========
+    function updateHeaderShadow() {
+      const header = document.getElementById('header');
+      if (window.scrollY > 0) {
+        header.style.borderBottomColor = '#e5e5e5';
+        header.style.boxShadow = '0 1px 3px rgba(0,0,0,0.05)';
+      } else {
+        header.style.borderBottomColor = 'transparent';
+        header.style.boxShadow = 'none';
+      }
+    }
+
+    // ========== CLOSE ON OUTSIDE CLICK ==========
+    document.addEventListener('click', (e) => {
+      const userMenu = document.getElementById('userMenu');
+      if (!userMenu.classList.contains('hidden') && !e.target.closest('#userMenu') && !e.target.closest('[onclick="toggleUserMenu()"]')) {
+        userMenu.classList.add('hidden');
+      }
+    });
+
+    // ========== SCROLL ANIMATIONS ==========
+    function initScrollAnimations() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.animationPlayState = 'running';
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.animate-in').forEach(el => {
+        el.style.animationPlayState = 'paused';
+        observer.observe(el);
+      });
+    }
+
+    // ========== INIT ==========
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCategories();
+      renderEvents();
+      renderCatFeatures();
+      renderTrending();
+      renderTestimonials();
+      lucide.createIcons();
+
+      const catBar = document.getElementById('categoryBar');
+      catBar.addEventListener('scroll', updateCatArrows);
+      setTimeout(updateCatArrows, 100);
+
+      window.addEventListener('scroll', updateHeaderShadow, { passive: true });
+      setTimeout(initScrollAnimations, 200);
+    });
+  </script>
+</body>
+</html>
