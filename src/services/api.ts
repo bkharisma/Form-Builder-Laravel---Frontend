@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import type { ApiError } from '../types';
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || '/api',
@@ -14,16 +14,16 @@ api.interceptors.request.use((config) => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
-  if (config.data instanceof FormData) {
-    delete config.headers['Content-Type'];
-  }
   return config;
 });
 
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    return Promise.reject(error);
+    const apiError: ApiError = error.response?.data ?? {
+      message: 'An unexpected error occurred',
+    };
+    return Promise.reject(apiError);
   }
 );
 
