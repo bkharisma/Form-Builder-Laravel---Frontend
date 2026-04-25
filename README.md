@@ -11,7 +11,7 @@
 [![Testing: Vitest](https://img.shields.io/badge/testing-vitest-6da13f.svg?style=for-the-badge)](https://vitest.dev/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-A single-page application for building forms, managing submissions, tracking event attendance, and generating dynamic reports — all connected to a Laravel backend API.
+A single-page application for building forms, managing submissions with generating dynamic reports and autofilled form with unique data type feature  — all connected to a Laravel backend API.
 
 [Quick Start](#quick-start) · [Features](#features) · [Project Structure](#project-structure) · [Configuration](#configuration) · [Scripts](#available-scripts) · [Troubleshooting](#troubleshooting)
 
@@ -32,7 +32,6 @@ A single-page application for building forms, managing submissions, tracking eve
 | **Admin Dashboard**          | Manage forms, view submissions, generate reports from a single panel                        |
 | **Drag-and-Drop Builder**    | Visual field editor with 13+ field types powered by `@dnd-kit`                              |
 | **Auto-Fill**                | Automatically populate fields from previous submissions                                     |
-| **Attendance / Event Manager** | Event check-ins, invitations, and QR code generation                                      |
 | **Dynamic Reports**          | Chart-based analytics with Chart.js — bar, pie, line, and more                              |
 | **Export**                   | Download submissions as CSV, Excel (XLSX), or PDF                                            |
 | **Rich Text Editor**         | `@tiptap` powered WYSIWYG field type                                                        |
